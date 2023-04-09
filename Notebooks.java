@@ -19,21 +19,33 @@
 import java.util.*;
 
 public class Notebooks {
-    static void ComputerSearch() {
-        SearchMethod("Введите модель: ");
-        
+    static void ComputerSearch(Map<Integer, Computers> map) {
+        String modelName = SearchForString("Введите модель: ");
+        for (Map.Entry<Integer, Computers> entry: map.entrySet()) {
+            if (entry.getValue().toString().toLowerCase().contains(modelName.toString().toLowerCase())) {
+                System.out.println(entry.getValue().toString());
+            } 
+        }
     }
 
-    static void SearchMethod(String mess) {
+    static String SearchForString(String mess) {
         System.out.print(mess);
         Scanner sc = new Scanner(System.in);
-        String model = sc.nextLine();
+        String obj = sc.nextLine();
         sc.close();
-        System.out.println(model);
+        return obj;
+    }
+
+    static Integer SearchForInt(String mess) {
+        System.out.print(mess);
+        Scanner sc = new Scanner(System.in);
+        int obj = sc.nextInt();
+        sc.close();
+        return obj;
     }
     
     public static void main(String[] args) {
-        Map<Integer, Computers> comp = new HashMap<>();
+        Map<Integer, Computers> comp = new HashMap<Integer, Computers>();
         comp.put(1, new Computers("Xiaomi", "RedmiBook 15",
                 8, 3, 256, "Windows", "Intel UHD Graphics"));
         
@@ -41,7 +53,7 @@ public class Notebooks {
         //for (Map.Entry<Integer, Computers> entry : comp.entrySet()) {
         //    System.out.println(entry.getValue().toString());   
         //}
-        ComputerSearch();
+        ComputerSearch(comp);
     }
 }
 
