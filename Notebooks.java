@@ -19,32 +19,7 @@
 import java.util.*;
 
 public class Notebooks {
-    // метод для поиска значений при использовании Map
-    // static void ComputerSearch(Map<Integer, Computers> map) {
-    //     String modelName = "Xiaomi";
-    //     for (Iterator<Map.Entry<Integer, Computers>> itr: map.entrySet().iterator()) {
-    //         while (itr.hasNext()){
-    //             if (itr.next().toString().toLowerCase().contains(modelName.toString().toLowerCase())) {
-    //                 System.out.println(itr.next().toString());
-    //             } 
-    //         }
-    //     }
-    // }
-    // метод для поиска значений при использовании ArrayList
-    // static void ComputerSearch(ArrayList<Computers> arr, Map<String, String> strMap, Map<String, Integer> intMap) {
-    //     for (Map.Entry<String, String> entry : strMap.entrySet()) {
-    //         if (Computers.computerModel.toLowerCase().contains(entry.getValue().toString().toLowerCase())) {
-    //             System.out.println(entry.getValue().toString());
-    //         } 
-    //     }
-    // }
 
-    // метод для обработки выбора в меню
-    // static int Choice(Map<K, V> map, String mess, Scanner sc){
-    //     System.out.print(mess);
-    //     String obj = sc.nextLine();
-    //     map.put("Model", obj);
-    //}
     public static void main(String[] args) {
 
         Laptop compOne = new Laptop();
@@ -60,7 +35,7 @@ public class Notebooks {
         compTwo.setComputerSeries("M1702QA-AU081");
         compTwo.setComputerRam(16);
         compTwo.setComputerSsd(512);
-        compTwo.setComputerOs("Не установлена");
+        compTwo.setComputerOs(null);
         compTwo.setComputerVideo("Radeon RX Vega 7");
 
         Laptop compThree = new Laptop();
@@ -68,7 +43,7 @@ public class Notebooks {
         compThree.setComputerSeries("VivoBook S14");
         compThree.setComputerRam(8);
         compThree.setComputerSsd(512);
-        compThree.setComputerOs("Windows 10");
+        compThree.setComputerOs("Windows");
         compThree.setComputerVideo("GeForce MX350");
 
         Laptop compFour = new Laptop();
@@ -76,7 +51,7 @@ public class Notebooks {
         compFour.setComputerSeries("IdeaPad 5");
         compFour.setComputerRam(8);
         compFour.setComputerSsd(256);
-        compFour.setComputerOs("Windows 11");
+        compFour.setComputerOs("Windows");
         compFour.setComputerVideo("Intel Iris Xe Graphics");
 
         Laptop compFive = new Laptop();
@@ -84,16 +59,10 @@ public class Notebooks {
         compFive.setComputerSeries("MateBook D15");
         compFive.setComputerRam(8);
         compFive.setComputerSsd(512);
-        compFive.setComputerOs("Windows 11");
+        compFive.setComputerOs("Windows");
         compFive.setComputerVideo("Intel Iris Xe Graphics");
 
 
-
-
-
-
-        
-        
         Map<Integer, Laptop> comp = new HashMap<Integer, Laptop>();
         comp.put(1, compOne);
         comp.put(2, compTwo);
@@ -102,31 +71,30 @@ public class Notebooks {
         comp.put(5, compFive);
 
         
-        // Map<String, String> stringFilter = new HashMap<String, String>();
-        // Map<String, Integer> intFilter = new HashMap<String, Integer>();
         Map<Integer, Laptop> compSearch = new HashMap<Integer, Laptop>();
         
         Scanner sc = new Scanner(System.in);
         menu(compSearch, sc);
         sc.close();
 
-        System.out.println(compSearch.get(0).equals(compOne));
-        // System.out.println(comp.get(0).toString());
-        // if (comp.toString().toLowerCase().contains(stringFilter.get("Model").toLowerCase())) {
-        //     int index = comp.indexOf(new Computers("Xiaomi", "RedmiBook 15",
-        //     8, 256, "Windows", "Intel UHD Graphics"));
-        //     System.out.println(comp.get(index));
-        // } else {
-        //     System.out.println("NO");
-        // }
-        // ComputerSearch(comp);
-        // System.out.println(stringFilter);
-        // System.out.println(intFilter);
+        System.out.println();
+        System.out.println("Результаты поиска:");
+        if (comp.containsValue(compSearch.get(0))){
+            for (Map.Entry<Integer, Laptop> entry : comp.entrySet()){
+                if (compSearch.get(0).equals(entry.getValue())){
+                    System.out.println(entry.getValue());
+                }
+            }
+        } else {
+            System.out.println("Модели с запрашиваемыми параметрами не найдены!");
+        }
     }
 
     // метод для реализации меню
     static void menu(Map<Integer, Laptop> map, Scanner sc) {
         Laptop lapSearch = new Laptop();
+
+        System.out.println("Введите необходимые критерии поиска:");
         System.out.print("Название модели: ");
         lapSearch.setComputerModel(sc.nextLine());
         System.out.print("Название серии: ");
@@ -141,17 +109,14 @@ public class Notebooks {
         lapSearch.setComputerSsd(sc.nextInt());
         
         map.put(0, lapSearch);
-        // System.out.println("Введите цифру, соответствующую параметру поиска, который хотите задать:");
-        // System.out.println("1 - Модель ноутбука");
-        // System.out.println("2 - Серия ноутбука");
-        // System.out.println("3 - ОЗУ");
-        // System.out.println("4 - Частота процессора");
-        // System.out.println("5 - Объем ЖД");
-        // System.out.println("6 - ОС");
-        // System.out.println("7 - Видеокарта");
-        // System.out.println("0 - Выход из поиска");
     }
 }
+
+
+
+
+
+
 
 class Laptop {
     private String computerModel;
@@ -161,16 +126,6 @@ class Laptop {
     private String computerOs;
     private String computerVideo;
 
-
-    // String model, String series, Integer ram, Integer ssd, String os, String videocard
-    // public Computers(String model, String series, Integer ram, Integer ssd, String os, String videocard){
-    //     this.computerModel = model;
-    //     this.computerSeries = series;
-    //     this.computerRam = ram;
-    //     this.computerSsd = ssd;
-    //     this.computerOs = os;
-    //     this.computerVideo = videocard;
-    // }
 
     
 
@@ -254,15 +209,7 @@ class Laptop {
 
     @Override
     public int hashCode() {
-        // final int prime = 31;
-        // int result = 1;
-        // result = prime * result + ((computerModel == null) ? 0 : computerModel.hashCode());
-        // result = prime * result + ((computerSeries == null) ? 0 : computerSeries.hashCode());
-        // result = prime * result + ((computerRam == null) ? 0 : computerRam.hashCode());
-        // result = prime * result + ((computerSsd == null) ? 0 : computerSsd.hashCode());
-        // result = prime * result + ((computerOs == null) ? 0 : computerOs.hashCode());
-        // result = prime * result + ((computerVideo == null) ? 0 : computerVideo.hashCode());
-        return Objects.hash(computerModel, computerSeries, computerRam, computerSsd, computerOs, computerVideo);
+        return Objects.hash(computerModel.toLowerCase(), computerRam, computerSsd, computerVideo.toLowerCase());
     }
 
     @Override
@@ -274,8 +221,7 @@ class Laptop {
         if (getClass() != obj.getClass())
             return false;
         Laptop computer = (Laptop) obj;
-        return Objects.equals(computerModel, computer.computerModel) && Objects.equals(computerOs, computer.computerOs) && 
-                            Objects.equals(computerRam, computer.computerRam) && Objects.equals(computerSeries, computer.computerSeries) &&
-                            Objects.equals(computerSsd, computer.computerSsd) && Objects.equals(computerVideo, computer.computerVideo);
+        return Objects.equals(computerModel.toLowerCase(), computer.computerModel.toLowerCase()) || 
+                computerRam <= computer.computerRam || computerSsd <= computer.computerSsd || Objects.equals(computerVideo.toLowerCase(), computer.computerVideo.toLowerCase());
     }
 }
